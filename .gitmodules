@@ -1,0 +1,3 @@
+[submodule "nuclide-data"]
+	path = nuclide-data
+	url = https://github.com/jhykes/nuclide-data.git
