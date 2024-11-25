@@ -1,17 +1,4 @@
-for i, file in enumerate(allnewfiles): 
-    #Add to Plot 
-    filename = file.replace(f"convg_{i+1}.run", "")
-    os.chdir("/Users/catebeckman/OneDrive - Michigan State University/15C_brkup/potentials/convg")
-    plt.plot(energy[i], energycs[i], label = f"{xinp[i]},{yinp[i]}")
-plt.legend()
-plt.title('Relative Energy n-14C', y=1.03)
-plt.ylabel('Absolute Cross Section (mb/str)')
-plt.xlabel('Energy (MeV)')
-plt.legend(loc=0)
-plt.show()
-
-Beckman DFD translation to 
-Psuedocode 
+Beckman DFD translation to Psuedocode 
 
 #==========================================================================
 # 1) Call these inside a larger function to write input file ? 
