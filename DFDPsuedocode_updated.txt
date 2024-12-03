@@ -34,110 +34,10 @@ pot(option)
 	write potential section of input file based on selected array of parameters
 return "added potential" to input file 
 
-#==========================================================================
-# 2) SSH into remote server, run fresco (python)
-#==========================================================================
-
-import necessary functions (paramiko, os, etc)
-
-# Connection details
-midhost = 'nsclgw2.nscl.msu.edu'
-user = 'beckman'
-midpassword = getpass.getpass(prompt='Password: ')
-finalhost = 'fishtank'
-finaluser = 'beckman'
-final_password = getpass.getpass(prompt='Password: ')
-final_port = 22
-
-# Define local location to save files to, check if it exists
-localdir = "/Users/catebeckman/OneDrive - Michigan State University/15C_brkup/15Cremoterun"
-if os.path.exists(localdir)==True:
-    print("Local directory found")
-else:
-    print("Local directory not found")
-
-try:
-    # Connect to the intermediate server
-    intermediate_ssh = paramiko.SSHClient()
-    intermediate_ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    intermediate_ssh.connect(midhost, username=user, password=midpassword)
-
-    # Open a transport session to the intermediate server
-    transport = intermediate_ssh.get_transport()
-    channel = transport.open_channel('direct-tcpip', (finalhost, final_port), ('local host', 0))
-
-    # Use this channel to connect to fishtank
-    final_ssh = paramiko.SSHClient()
-    final_ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-    final_ssh.connect(finalhost, username=user, password=final_password, sock=channel)
-
-    commands = '''
-                cd /user/beckman/15C_brkup/runfile
-                chmod +x 15Cbrkup.run
-                ./15Cbrkup.run
-                '''
-
-    print('executing command lines')
-    stdin, stdout, stderr = final_ssh.exec_command(commands)
-    print(stdout.read().decode())
-    print("Successfully connected to the final server.")
-
-    # Download relevant files to local machine
-    sftp = final_ssh.open_sftp()
-    # Define dictionary to transfer files. Adds file name to local directory to
-    # make full local filepath
-    transferdict = {
-        '/user/beckman/15C_brkup/runfile/15Cangular': os.path.join(localdir, '15Cangular'),
-        '/user/beckman/15C_brkup/runfile/15Cenergy': os.path.join(localdir, '15Cenergy')
-    }
-
-    # Save remote file to local, print error messages
-    for remote_path, local_path in transferdict.items():
-        print(f'Transferring {remote_path} to {local_path}')
-        try:
-            sftp.get(remote_path, local_path)
-        except FileNotFoundError as e:
-            print(f"FileNotFound: {e}")
-        except IOError as e:
-            print(f"IOError: {e}")
-
-
-    sftp.close()
-    print("Files transferred successfully.")
-except paramiko.AuthenticationException:
-    print("Authentication failed. Please check your credentials.")
-except paramiko.SSHException as e:
-    print(f"SSH error: {e}")
-except Exception as e:
-    print(f"An error occurred: {e}")
-
-
-finally:
-    # Ensure all connections are closed
-    if 'final_ssh' in locals():
-        final_ssh.close()
-    if 'intermediate_ssh' in locals():
-        intermediate_ssh.close()
-    if 'channel' in locals():
-        channel.close()
-
-#==============================================================================
-# 3) Function definitions called late script to analysis
-#==============================================================================
-
-def unnest(listlist):
-    flat_list = []
-    for element in listlist:
-        if type(element) is list:
-            for item in element:
-                flat_list.append(item)
-        else:
-            flat_list.append(element)
-    return flat_list
     
 
 #==============================================================================
-# 4) Pull data from files
+# 2) Pull data from files
 #==============================================================================
 
 os.chdir(Navigate to directory)
@@ -150,7 +50,7 @@ with open(outfile1) as f1:
 print('File Read')
 
 #==============================================================================
-#56) Plot Breakup Cross Section
+#3) Plot Breakup Cross Section
 #==============================================================================
 
 plt.plot(thettot, cstot)
@@ -166,7 +66,7 @@ filename = input("Input plot name to save: ")
 plt.savefig(os.path.join(localdir, filename))
 
 #================================================================================
-# 7) Convergence Plots
+# 4) Convergence Plots
 #================================================================================
 
 # Function to replace X with whatever you want in file for jbord, and Y
@@ -203,11 +103,11 @@ for i, file in enumerate(filelist):
     
     
     #Get to directory after entering file list for CDCC calcs
-    os.chdir("/Users/catebeckman/OneDrive - Michigan State University/15C_brkup/potentials/convg")
-    filename = file.replace(".run", "")
-    print("Directory: ", filename)
+    os.chdir(Navigate to directory)
+    print(Tell user which directory you're in)
+    save the file name as a variable 
     
-    os.chdir("/Users/catebeckman/OneDrive - Michigan State University/15C_brkup/potentials/convg")
+    os.chdir(navigate to directory in which you want to save the convergence files)
     fileindex = i+1
     print("Source File: ", file)
     
@@ -244,17 +144,9 @@ for i, file in enumerate(filelist):
         newfilename = newfile.replace(".run", "")
         
         print('File being run in terminal: ', newfilename)
-        command = f'''
-            cd "/Users/catebeckman/OneDrive - Michigan State University/15C_brkup/potentials/convg" || exit
-            chmod +x {newfile}
-            ./{newfile}
-            /Users/catebeckman/bin/cdc < {filename}.cdcc > {newfilename}.in  || exit
-            /Users/catebeckman/bin/fresco < {newfilename}.in > {newfilename}.out
-            cp fort.16 {newfilename}_16 || exit
-            cp fort.13 {newfilename}_13 || exit
-            /Users/catebeckman/bin/fres/util/sumbins < fort.16 > {newfilename}angular || exit
-            /Users/catebeckman/bin/fres/util/sumxen < fort.13 > {newfilename}energy || exit
-                  '''
+        
+        Run the file either in command line, or with sbatch in command line
+
         bashresults = subprocess.run(command, capture_output=True, shell=True)
         print("stdout:", bashresults.stdout.decode())
         print("stderr:", bashresults.stderr.decode())
@@ -264,7 +156,7 @@ for i, file in enumerate(filelist):
     
     
         #Get to correct directory in order to open the fort16 file
-        os.chdir("/Users/catebeckman/OneDrive - Michigan State University/15C_brkup/potentials/convg")
+        os.chdir(Navigate to the right directory)
         outfile = f'{newfilename}_16'
 
         #Open fort.16 file
@@ -386,5 +278,5 @@ plt.legend(loc=0)
 plt.show()
 
 #==============================================================================
-# 8) Send to advisor, no code for, manual
+# 4) Send to advisor, no code for, manual
 #==============================================================================
