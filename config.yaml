@@ -1,0 +1,12 @@
+# Configuration file 
+# 
+# Edit the following directory paths to represent where you want to store inputs 
+# and outputs
+
+home_dir: "/mnt/home/beckma75/CMSE890Project"
+input_dir: "{home_dir}/input"
+output_dir: "{home_dir}/outputs"
+log_dir: "{home_dir}/logs"
+resources:
+  memory: 4000
+  threads: 4
