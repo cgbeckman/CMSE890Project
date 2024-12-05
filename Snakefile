@@ -1,53 +1,46 @@
 # define directory 
-home_dir = "/mnt/home/beckma75"
+#home_dir = "/mnt/home/beckma75/CMSE890Project"
+
 
 # rule to run the fresco input file,
 # then save all of the outputs to the specified output directory 
 
 rule run_input: 
-    input:  f"{home_dir}/scat_snakemake/input/example-br.run"
-    output: f"{home_dir}/scat_snakemake/outputs/example-br.out"
-    params: 
-        output_dir = f"{home_dir}/scat_snakemake/outputs/"
+    input:  "~/input/example-br.run"
+    output: "~/outputs/example-br.out"
+    log: 
+       "logs/run_calculation/
    # Set memory resource for job submission
     resources: 
         mem_mb = 4000 
     threads: 4
     shell:
         '''
-        set -x
         chmod +x {input} 
         {input} 
+        ~/fresco/sumbins < fort.16 > energy_integration.txt
+        ~/fresco/sumxen < fort.13  > angle_integration.txt
         for file in fort*; do
-            mv "$file" {params.output_dir};
+            mv "$file" ~outputs/fort_files/;
         done    
-        mv example-br.out {home_dir}/scat_snakemake/outputs/
-        mv example-br.in {home_dir}/scat_snakemake/input/
+        mv example-br.out outputs/
+        mv example-br.in input/
+        mv energy_integration.txt outputs/integrated_cross_sections/
+        mv angle_integration.txt outputs/integrated_cross_sections/
         '''
-rule clean: 
-    shell: '''
-          for file in fort*; do
-             rm "$file";
-          done
-          '''  
-# Rule to integrate differential cross section with respect to dE
-rule energy_integration:
-    input: f"{home_dir}/outputs/fort.16"
-    output: f"{home_dir}/outputs/angdist_int_energy"
-    shell: '''
-           {home_dir}/fres/util/sumbins < {input} > {output}
-           '''
-# Rule to integrate fort.13 with respect to angle 
-rule angular_integration:
-    input: f"{home_dir}/outputs/fort.13"
-    output: f"{home_dir}/outputs/angdist_int_angle"
-    shell: '''
-           {home_dir}/fres/util/sumxen < {input} > {output}
-           '''
+
+# Clean rule is redundant, you're using mv above not cp
+#rule clean: 
+ #   shell: '''
+  #        for file in fort*; do
+   #          rm "$file";
+    #      done
+     #     '''  
+
 # Rule to plot the total breakup cross section
 rule plot_brkup_cs: 
-    input: f"{home_dir}/outputs/angdist_int_energy"
-    output: f"{home_dir}/outputs/brkup_cs.png"
+    input: "~/outputs/energy_integration.txt"
+    output: "~/outputs/plots/brkup_cs.png"
     run: 
         import matplotlib.pyplot as plt
         import os 
@@ -83,5 +76,5 @@ rule plot_brkup_cs:
 # Move breakup cross section to output directory
 rule move_plot:
     input: "brkup_cs.png"
-    output: f"{home_dir}/outputs/brkup_cs.png"
-    shell: "mv {input} {output}"
+    output: "~/outputs/plots/brkup_cs.png"
+    shell: f"mv {input} {output}"
