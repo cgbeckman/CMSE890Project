@@ -7,7 +7,7 @@
 
 rule run_input: 
     input:  "~/input/example-br.run"
-    output: "~/outputs/example-br.out"
+    output: "~/outputs/output_file/example-br.out"
     log: 
        "logs/run_calculation/
    # Set memory resource for job submission
@@ -23,7 +23,7 @@ rule run_input:
         for file in fort*; do
             mv "$file" ~outputs/fort_files/;
         done    
-        mv example-br.out outputs/
+        mv example-br.out outputs/output_file
         mv example-br.in input/
         mv energy_integration.txt outputs/integrated_cross_sections/
         mv angle_integration.txt outputs/integrated_cross_sections/
