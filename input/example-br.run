@@ -26,7 +26,4 @@ aso=0.625115 /
 
 EOF
 /mnt/home/beckma75/bin/cdc < cdc.in > long_input.in
-/mnt/home/beckma75/bin/fresco <long_input.in > brkup.out
-/mnt/home/beckma75/fres/util/sumbins < fort.16 > int_energy 
-/mnt/home/beckma75/fres/util/sumxen < fort.13 > int_angle
-
+/mnt/home/beckma75/bin/fresco <long_input.in > example-br.out
