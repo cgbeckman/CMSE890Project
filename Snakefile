@@ -4,8 +4,8 @@ rule all:
     input: "outputs/output_file/example-br.out",
            "input/long_input.in",
            "outputs/plots/brkup_cs.png",
-           "outputs/plots/s_half_relative_energy.png"
-
+           "outputs/plots/s_half_relative_energy.png",
+           "outputs/test_results/fort16_test.txt"
 # Rule to run the fresco calculation
 rule run_input:
     input:
@@ -29,8 +29,12 @@ rule run_input:
         mv angle_integration.txt outputs/integrated_cross_sections/
         """
 
-#rule test_calculation:
-
+# Rule test the result of the calculation
+rule test_nan: 
+    input: "outputs/fort_files/fort.16"
+    output: "outputs/test_results/fort16_test.txt"
+    shell: "python3 python_scripts/tests/NaN_test.py > {output}" 
+   
 # Rule to plot the total breakup cross section
 rule plot_brkup_cs: 
     input: 
@@ -48,4 +52,5 @@ rule plot_relative_energy:
         output_file = "outputs/plots/s_half_relative_energy.png"
     script:
         "python_scripts/relative_energies.py"
+
 
