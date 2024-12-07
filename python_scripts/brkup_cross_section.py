@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import os
-        
+      
 print("Starting to run python")
 # start of script to read in file
 
