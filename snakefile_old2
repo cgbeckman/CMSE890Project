@@ -3,8 +3,7 @@
 rule all: 
     input: "outputs/output_file/example-br.out",
            "input/long_input.in",
-           "outputs/plots/brkup_cs.png",
-           "outputs/plots/s_half_relative_energy.png"
+           "outputs/plots/brkup_cs.png"
 
 # Rule to run the fresco calculation
 rule run_input:
@@ -37,15 +36,36 @@ rule plot_brkup_cs:
         input_file = "outputs/integrated_cross_sections/energy_integration.txt"
     output: 
         output_file = "outputs/plots/brkup_cs.png"
-    script:
-        "python_scripts/brkup_cross_section.py"
+    run: 
+        import matplotlib.pyplot as plt
+        import os 
+        print("Starting to run python")
+        # start of script to read in file
+        content = []
+        theta= []
+        CS = []
 
-# Plot the relative energy distribution
-rule plot_relative_energy:
-    input:
-        input_file = "outputs/integrated_cross_sections/angle_integration.txt"
-    output:
-        output_file = "outputs/plots/s_half_relative_energy.png"
-    script:
-        "python_scripts/relative_energies.py"
+        
+        with open(input.input_file) as file:
+            for line in file:
+                count = 0
+                strip = line.strip().split()
+                print("File read")
+                if len(strip) > 1:
+                    try: 
+                       theta.append(float(strip[0]))
+                       CS.append(float(strip[1]))
+                    except ValueError:
+                       continue
+                else: 
+                    print(f'File  does not exist')
 
+    # Plot the result
+        
+        plt.figure()
+        plt.plot(theta, CS)
+        plt.xlabel('COM Angle')
+        plt.ylabel('Total Breakup Cross-Section (mb/str)')
+        plt.title('Breakup Angular Distribution')
+        plt.show()
+        plt.savefig(output.output_file)
