@@ -1,0 +1,282 @@
+Beckman DFD translation to Psuedocode 
+
+#==========================================================================
+# 1) Call these inside a larger function to write input file  
+#==========================================================================
+
+# Function to generate input file for fresco. Potentially ambitious to try 
+to implement, because each input file is different depending on what type 
+of reaction is modeled (elastic, inelastic, breakup, transfer)
+# Would need to call multiple functions to do this  
+
+# First Function: Fill out the namelist section of the input file
+namelist(hcm, jmax, rxn, elab)
+	open input file template
+	line replace(radial step size)     #place hcm (radial step) in place of variable in input file template
+	line replace(jmax)                 #place jmax (max partial waves) in place of variable input file template
+	line replace(q value)              #place q variable in 
+        line replace(reaction description) #place description of reaction at top of file (A+B->C+D, energy, etc)
+	line replace(energy)               #place elab in place of variable in inputfile
+return "Namelist added" 
+
+# Second Function: Fill out the partition section of the input file
+states(targ ID, proj ID, nex)
+	open previously saved input file 
+	read in targ ID information from IAEA or NNDC data file (A,Z, BE, gs to excited state level scheme info)
+	place A, Z, BE in place of variable in input file template
+	write file/save to OneDrive
+return "added states to" input file 
+
+# Third Function: Fill out the potential section of the input file 
+pot(option)
+	Enter arrays of global potential parameters, assign an ID within the function (1,2,3 etc)
+	select option of which potential parameter (1,2,3)
+	write potential section of input file based on selected array of parameters
+return "added potential" to input file 
+
+    
+
+#==============================================================================
+# 2) Pull data from files
+#==============================================================================
+
+os.chdir(Navigate to directory)
+outfile1 = open filename #replace back with fstring
+
+#Open fort.16 file
+with open(outfile1) as f1:
+    read in data line by line, skip headers
+    sort data by column (cs, angle)  
+print('File Read')
+
+#==============================================================================
+#3) Plot Breakup Cross Section
+#==============================================================================
+
+plt.plot(thettot, cstot)
+plt.xlim(0,100)
+plt.title('Elastic Scattering')
+plt.legend()
+plt.title('Elastic Scattering', y=1.03)
+plt.ylabel('Absolute Cross Section (mb/str)')
+plt.xlabel('$^{CM}\Theta$')
+plt.legend(loc=0)
+plt.show() 
+filename = input("Input plot name to save: ")
+plt.savefig(os.path.join(localdir, filename))
+
+#================================================================================
+# 4) Convergence Plots
+#================================================================================
+
+# Function to replace X with whatever you want in file for jbord, and Y
+def converge(file, X, Y, Z):
+    with open(file, 'r') as f:
+        content = f.readlines()
+
+        new_content = []
+        newfiles = []
+        for line in content:
+            line replace("XX", str(X))
+            line replace("YY", str(Y))
+            line replace("ZZ", str(Z))
+            new_content.append(line)
+        new_file = f"{file.split('.')[0]}_{i+1}.{file.split('.')[1]}"
+        newfiles.append(new_file)
+        with open(new_file, 'w') as f:
+            f.writelines(new_content)
+        
+    return newfiles
+
+os.chdir(Navigate to appropriate directory)
+inputarr = []
+# User inputs, filename, variable name
+filelist = list(map(str, input("Enter the .run file: ").split(',')))
+inputarr = list(map(str, input("Input jbord X Y Z as list (),(): ").split(',')))
+
+
+#Loop using f string, which allows to replace a string with something callable
+for i, file in enumerate(filelist):
+    count = 0
+    
+    #Preallocate in loop so they clear on each iteration
+    
+    
+    #Get to directory after entering file list for CDCC calcs
+    os.chdir(Navigate to directory)
+    print(Tell user which directory you're in)
+    save the file name as a variable 
+    
+    os.chdir(navigate to directory in which you want to save the convergence files)
+    fileindex = i+1
+    print("Source File: ", file)
+    
+    allnewfiles = []
+    # Use converge function to replace X and Y in jbord with your inputs 
+    xhold = []
+    xinp = []
+    yinp = []
+    zinp = []
+    for i in range(0, len(inputarr), 3):
+        xinp.append(inputarr[i])
+        yinp.append(inputarr[i+1]) 
+        zinp.append(inputarr[i+2])
+    
+      
+    for i in range(0, len(xinp)):
+        newfiles = converge(file, xinp[i], yinp[i], zinp[i])
+        allnewfiles.append(newfiles)
+    
+    allnewfiles = unnest(allnewfiles)
+    print('Files created:', allnewfiles)
+    
+    
+    for newfile in allnewfiles:
+        cshold =[]
+        inelhold = []
+        theta = []
+        csholdtot = []
+        thetatot = []
+        outfile = []
+        csE = []
+        energyholder = []
+        
+        newfilename = newfile.replace(".run", "")
+        
+        print('File being run in terminal: ', newfilename)
+        
+        Run the file either in command line, or with sbatch in command line
+
+        bashresults = subprocess.run(command, capture_output=True, shell=True)
+        print("stdout:", bashresults.stdout.decode())
+        print("stderr:", bashresults.stderr.decode())
+        print(f"File {newfilename} run success")
+        print(f"{newfilename}_16")
+    
+    
+    
+        #Get to correct directory in order to open the fort16 file
+        os.chdir(Navigate to the right directory)
+        outfile = f'{newfilename}_16'
+
+        #Open fort.16 file
+        with open(outfile) as f:
+            y = f.readlines()
+            #skip the first 13 lines which are meant for X plotting
+            #split up each row and get rid of the spaces 
+            contenthan = [x.strip().split() for x in y[13:113]]
+            inelcontent = [x.strip().split() for x in y[120:220]]
+        
+
+        #Un-nest the list
+        unnesthan = unnest(contenthan)
+        inellist= unnest(inelcontent)
+    
+        #Index over even vs odd to separate angle and cross section 
+        for x in range(0, len(unnesthan)):
+            if x % 2:
+                #print(float((unnesthan[x])))
+                cshold.append(float(unnesthan[x]))
+                inelhold.append(float(inellist[x]))
+            else: 
+                theta.append(float(unnesthan[x]))        
+                # Fill each row of cross section arrays, determined by # inputs, with cross sections
+        #cs[i, :len(cshold)]=cshold 
+        #inel[i, :len(inelhold)]=inelhold
+    
+        outfile = f'{newfilename}angular'
+        with open(outfile) as f:
+            y = f.readlines()
+            content = [x.strip().split() for x in y[0:102]]
+        
+        unnestsum = unnest(content)
+    
+        for x in range(0, len(unnestsum)):
+            if x % 2:
+                csholdtot.append(float(unnestsum[x]))
+            else:
+                thetatot.append(float(unnestsum[x]))
+    
+        #cstotal[i, :len(csholdtot)] = csholdtot
+    
+        outfile2 = f"{newfilename}energy"
+        with open(outfile2) as f:
+            y = f.readlines()
+            content = [x.strip().split() for x in y[4:24]]
+        
+        unnestenergy = unnest(content)
+    
+        for x in range(0, len(unnestenergy)):
+            if x % 2:
+                csE.append(float(unnestenergy[x]))
+            else:
+                energyholder.append(float(unnestenergy[x]))
+
+        
+        # save cross section information from each file into one array
+        cs[count, :len(cshold)]=cshold 
+        inel[count, :len(inelhold)]=inelhold
+    
+	# save energy info from each file into one array
+        energycs[count, :len(csE)] = csE
+        energy[count, :len(energyholder)] = energyholder
+    
+        # save total cross section from each file into one array
+        cstotal[count, :len(csholdtot)] = csholdtot
+
+        count += 1
+    
+print("loop ended")  
+
+# Plot the elastic cross section for each the varying partial waves
+for i, file in enumerate(allnewfiles): 
+    #Add to Plot 
+    filename = file.replace(f"convg_{i+1}.run", "")
+    print(filename)
+    os.chdir("/Users/catebeckman/OneDrive - Michigan State University/15C_brkup/potentials/convg")
+    plt.plot(theta, cs[i], label = f"{filename}")
+print("loop done")
+plt.yscale('log')
+plt.xlim(0,100)
+plt.ylim(0.01,10000)
+plt.yticks([0.01, 0.1, 1, 10, 100, 1000, 10000])
+plt.legend()
+plt.title('Elastic Scattering', y=1.03)
+plt.ylabel('Absolute Cross Section (mb/str)')
+plt.xlabel('$^{CM}\Theta$')
+plt.legend(loc=0)
+plt.show()
+
+# Plot the total breakup cross section for each varying partial wave file 
+for i, file in enumerate(allnewfiles): 
+    #Add to Plot 
+    filename = file.replace(f"convg_{i+1}.run", "")
+    os.chdir("/Users/catebeckman/OneDrive - Michigan State University/15C_brkup/potentials/convg")
+    plt.plot(thetatot, cstotal[i], label = f"{xinp[i]},{yinp[i]}")
+plt.yscale('log')
+plt.xlim(0,100)
+plt.ylim(0.01,10000)
+plt.yticks([0.01, 0.1, 1, 10, 100, 1000, 10000])
+plt.legend()
+plt.title('Breakup Cross Section', y=1.03)
+plt.ylabel('Absolute Cross Section (mb/str)')
+plt.xlabel('$^{CM}\Theta$')
+plt.legend(loc=0)
+plt.show()
+
+# Plot rel E for each varying partial wave file
+for i, file in enumerate(allnewfiles): 
+    #Add to Plot 
+    filename = file.replace(f"convg_{i+1}.run", "")
+    os.chdir("/Users/catebeckman/OneDrive - Michigan State University/15C_brkup/potentials/convg")
+    plt.plot(energy[i], energycs[i], label = f"{xinp[i]},{yinp[i]}")
+plt.legend()
+plt.title('Relative Energy n-14C', y=1.03)
+plt.ylabel('Absolute Cross Section (mb/str)')
+plt.xlabel('Energy (MeV)')
+plt.legend(loc=0)
+plt.show()
+
+#==============================================================================
+# 4) Send to advisor, no code for, manual
+#==============================================================================
