@@ -1,0 +1,40 @@
+host: dev-intel16
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 28
+Rules claiming more threads will be scaled down.
+Job stats:
+job         count
+--------  -------
+all             1
+test_nan        1
+total           2
+
+Select jobs to execute...
+Execute 1 jobs...
+
+[Sat Dec  7 12:02:38 2024]
+localrule test_nan:
+    input: outputs/fort_files/fort.16
+    output: outputs/test_results/fort16_test.txt
+    jobid: 4
+    reason: Missing output files: outputs/test_results/fort16_test.txt
+    resources: tmpdir=/tmp
+
+[Sat Dec  7 12:02:39 2024]
+Finished job 4.
+1 of 2 steps (50%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Sat Dec  7 12:02:39 2024]
+localrule all:
+    input: outputs/output_file/example-br.out, input/long_input.in, outputs/plots/brkup_cs.png, outputs/plots/s_half_relative_energy.png, outputs/test_results/fort16_test.txt
+    jobid: 0
+    reason: Input files updated by another job: outputs/test_results/fort16_test.txt
+    resources: tmpdir=/tmp
+
+[Sat Dec  7 12:02:39 2024]
+Finished job 0.
+2 of 2 steps (100%) done
+Complete log: .snakemake/log/2024-12-07T120238.157586.snakemake.log

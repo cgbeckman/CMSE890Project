@@ -1,0 +1,34 @@
+host: dev-intel16
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 28
+Rules claiming more threads will be scaled down.
+Job stats:
+job          count
+---------  -------
+run_input        1
+total            1
+
+Select jobs to execute...
+Execute 1 jobs...
+
+[Thu Dec  5 13:57:13 2024]
+localrule run_input:
+    input: input/example-br.in
+    output: outputs/output_file/example-br.out, input/long_input.in
+    jobid: 0
+    reason: Missing output files: outputs/output_file/example-br.out
+    threads: 4
+    resources: tmpdir=/tmp, mem_mb=4000, mem_mib=3815
+
+RuleException in rule run_input in file /mnt/ufs18/home-042/beckma75/CMSE890Project/Snakefile, line 4:
+AttributeError: 'OutputFiles' object has no attribute 'output_file', when formatting the following:
+
+        fresco/cdc < {input.input_file} > {output.output_file2}
+        fresco/fresco < {output.output_file2} > {output.output_file}
+        fresco/sumbins < fort.16 > energy_integration.txt
+        fresco/sumxen < fort.13 > angle_integration.txt
+        for file in fort.*; do
+            mv file outputs/fort_files/
+        done
+        

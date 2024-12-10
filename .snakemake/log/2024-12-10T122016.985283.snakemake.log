@@ -1,0 +1,86 @@
+host: dev-intel16
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 28
+Rules claiming more threads will be scaled down.
+Job stats:
+job                count
+---------------  -------
+all                    1
+test_angle_int         1
+test_energy_int        1
+test_nan               1
+test_relE              1
+total                  5
+
+Select jobs to execute...
+Execute 4 jobs...
+
+[Tue Dec 10 12:20:17 2024]
+localrule test_angle_int:
+    input: outputs/integrated_cross_sections/angle_integration.txt
+    output: outputs/test_results/angle_int_test.txt
+    jobid: 7
+    reason: Missing output files: outputs/test_results/angle_int_test.txt
+    resources: tmpdir=/tmp
+
+
+[Tue Dec 10 12:20:17 2024]
+localrule test_relE:
+    input: outputs/fort_files/fort.13
+    output: outputs/test_results/fort13_test.txt
+    jobid: 6
+    reason: Missing output files: outputs/test_results/fort13_test.txt; Set of input files has changed since last execution; Code has changed since last execution
+    resources: tmpdir=/tmp
+
+
+[Tue Dec 10 12:20:17 2024]
+localrule test_nan:
+    input: outputs/fort_files/fort.16
+    output: outputs/test_results/fort16_nan.txt
+    jobid: 5
+    reason: Set of input files has changed since last execution
+    resources: tmpdir=/tmp
+
+
+[Tue Dec 10 12:20:17 2024]
+localrule test_energy_int:
+    input: outputs/integrated_cross_sections/energy_integration.txt
+    output: outputs/test_results/energy_int_test.txt
+    jobid: 8
+    reason: Missing output files: outputs/test_results/energy_int_test.txt
+    resources: tmpdir=/tmp
+
+[Tue Dec 10 12:20:18 2024]
+Finished job 6.
+1 of 5 steps (20%) done
+[Tue Dec 10 12:20:18 2024]
+Finished job 5.
+2 of 5 steps (40%) done
+[Tue Dec 10 12:20:18 2024]
+[Tue Dec 10 12:20:18 2024]
+Error in rule test_energy_int:
+    jobid: 8
+    input: outputs/integrated_cross_sections/energy_integration.txt
+    output: outputs/test_results/energy_int_test.txt
+    shell:
+        pytest python_scripts/tests/test_energy_int.py > outputs/test_results/energy_int_test.txt 2>&1
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Error in rule test_angle_int:
+    jobid: 7
+    input: outputs/integrated_cross_sections/angle_integration.txt
+    output: outputs/test_results/angle_int_test.txt
+    shell:
+        pytest python_scripts/tests/test_angle_int.py > outputs/test_results/angle_int_test.txt 2>&1
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Removing output files of failed job test_energy_int since they might be corrupted:
+outputs/test_results/energy_int_test.txt
+Removing output files of failed job test_angle_int since they might be corrupted:
+outputs/test_results/angle_int_test.txt
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2024-12-10T122016.985283.snakemake.log
+WorkflowError:
+At least one job did not complete successfully.

@@ -1,0 +1,7 @@
+host: dev-intel16
+Building DAG of jobs...
+MissingInputException in rule run_input in file /mnt/ufs18/home-042/beckma75/CMSE890Project/Snakefile, line 10:
+Missing input files for rule run_input:
+    output: {config[output_dir]}output_file/example-br.out
+    affected files:
+        {config[input_dir]}example-br.in

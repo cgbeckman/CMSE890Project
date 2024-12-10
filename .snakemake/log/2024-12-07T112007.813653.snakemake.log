@@ -1,0 +1,38 @@
+host: dev-intel16
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 28
+Rules claiming more threads will be scaled down.
+Job stats:
+job              count
+-------------  -------
+all                  1
+plot_brkup_cs        1
+total                2
+
+Select jobs to execute...
+Execute 1 jobs...
+
+[Sat Dec  7 11:20:08 2024]
+localrule plot_brkup_cs:
+    input: outputs/integrated_cross_sections/energy_integration.txt
+    output: outputs/plots/brkup_cs.png
+    jobid: 2
+    reason: Missing output files: outputs/plots/brkup_cs.png
+    resources: tmpdir=/tmp
+
+RuleException:
+WorkflowError in file /mnt/ufs18/home-042/beckma75/CMSE890Project/Snakefile, line 40:
+Failed to open source file /mnt/ufs18/home-042/beckma75/CMSE890Project/python_scripts/brkup_cs.py
+FileNotFoundError: [Errno 2] No such file or directory: '/mnt/ufs18/home-042/beckma75/CMSE890Project/python_scripts/brkup_cs.py'
+[Sat Dec  7 11:20:08 2024]
+Error in rule plot_brkup_cs:
+    jobid: 2
+    input: outputs/integrated_cross_sections/energy_integration.txt
+    output: outputs/plots/brkup_cs.png
+
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2024-12-07T112007.813653.snakemake.log
+WorkflowError:
+At least one job did not complete successfully.

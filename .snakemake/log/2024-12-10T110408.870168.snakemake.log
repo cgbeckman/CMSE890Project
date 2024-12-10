@@ -1,0 +1,7 @@
+host: dev-intel16
+Building DAG of jobs...
+MissingInputException in rule test_fresco in file /mnt/ufs18/home-042/beckma75/CMSE890Project/Snakefile, line 35:
+Missing input files for rule test_fresco:
+    output: outputs/test_results/fort16_exists.txt
+    affected files:
+        python_scripts/tests/test_fresco,py

@@ -1,0 +1,52 @@
+host: dev-intel16
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 28
+Rules claiming more threads will be scaled down.
+Job stats:
+job                     count
+--------------------  -------
+all                         1
+plot_brkup_cs               1
+plot_relative_energy        1
+total                       3
+
+Select jobs to execute...
+Execute 2 jobs...
+
+[Sat Dec  7 12:01:21 2024]
+localrule plot_brkup_cs:
+    input: outputs/integrated_cross_sections/energy_integration.txt
+    output: outputs/plots/brkup_cs.png
+    jobid: 2
+    reason: Code has changed since last execution
+    resources: tmpdir=/tmp
+
+[Sat Dec  7 12:01:21 2024]
+localrule plot_relative_energy:
+    input: outputs/integrated_cross_sections/angle_integration.txt
+    output: outputs/plots/s_half_relative_energy.png
+    jobid: 3
+    reason: Code has changed since last execution
+    resources: tmpdir=/tmp
+
+[Sat Dec  7 12:01:30 2024]
+Finished job 2.
+1 of 3 steps (33%) done
+[Sat Dec  7 12:01:30 2024]
+Finished job 3.
+2 of 3 steps (67%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Sat Dec  7 12:01:30 2024]
+localrule all:
+    input: outputs/output_file/example-br.out, input/long_input.in, outputs/plots/brkup_cs.png, outputs/plots/s_half_relative_energy.png
+    jobid: 0
+    reason: Input files updated by another job: outputs/plots/brkup_cs.png, outputs/plots/s_half_relative_energy.png
+    resources: tmpdir=/tmp
+
+[Sat Dec  7 12:01:30 2024]
+Finished job 0.
+3 of 3 steps (100%) done
+Complete log: .snakemake/log/2024-12-07T120120.916902.snakemake.log

@@ -1,0 +1,53 @@
+host: dev-intel16
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 28
+Rules claiming more threads will be scaled down.
+Job stats:
+job            count
+-----------  -------
+all                1
+test_angles        1
+test_relE          1
+total              3
+
+Select jobs to execute...
+Execute 2 jobs...
+
+[Sat Dec  7 12:07:32 2024]
+localrule test_relE:
+    input: outputs/integrated_cross_sections/angle_integration.txt
+    output: outputs/test_results/fort13_test.txt
+    jobid: 5
+    reason: Missing output files: outputs/test_results/fort13_test.txt
+    resources: tmpdir=/tmp
+
+
+[Sat Dec  7 12:07:32 2024]
+localrule test_angles:
+    input: outputs/integrated_cross_sections/energy_integration.txt
+    output: outputs/test_results/fort16_test.txt
+    jobid: 4
+    reason: Set of input files has changed since last execution
+    resources: tmpdir=/tmp
+
+[Sat Dec  7 12:07:33 2024]
+Finished job 5.
+1 of 3 steps (33%) done
+[Sat Dec  7 12:07:33 2024]
+Finished job 4.
+2 of 3 steps (67%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Sat Dec  7 12:07:33 2024]
+localrule all:
+    input: outputs/output_file/example-br.out, input/long_input.in, outputs/plots/brkup_cs.png, outputs/plots/s_half_relative_energy.png, outputs/test_results/fort16_test.txt, outputs/test_results/fort13_test.txt
+    jobid: 0
+    reason: Input files updated by another job: outputs/test_results/fort13_test.txt, outputs/test_results/fort16_test.txt
+    resources: tmpdir=/tmp
+
+[Sat Dec  7 12:07:33 2024]
+Finished job 0.
+3 of 3 steps (100%) done
+Complete log: .snakemake/log/2024-12-07T120732.125032.snakemake.log

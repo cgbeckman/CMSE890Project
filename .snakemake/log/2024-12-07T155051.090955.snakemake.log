@@ -1,0 +1,81 @@
+host: dev-intel16
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 28
+Rules claiming more threads will be scaled down.
+Job stats:
+job            count
+-----------  -------
+all                1
+test_angles        1
+test_fresco        1
+test_relE          1
+total              4
+
+Select jobs to execute...
+Execute 3 jobs...
+
+[Sat Dec  7 15:50:51 2024]
+localrule test_angles:
+    input: outputs/integrated_cross_sections/energy_integration.txt
+    output: outputs/test_results/fort16_test.txt
+    jobid: 4
+    reason: Missing output files: outputs/test_results/fort16_test.txt
+    resources: tmpdir=/tmp
+
+
+[Sat Dec  7 15:50:51 2024]
+localrule test_fresco:
+    input: outputs/fort_files/fort.16
+    output: outputs/test_results/fort16_exists.txt
+    jobid: 6
+    reason: Missing output files: outputs/test_results/fort16_exists.txt
+    resources: tmpdir=/tmp
+
+
+[Sat Dec  7 15:50:51 2024]
+localrule test_relE:
+    input: outputs/integrated_cross_sections/angle_integration.txt
+    output: outputs/test_results/fort13_test.txt
+    jobid: 5
+    reason: Missing output files: outputs/test_results/fort13_test.txt
+    resources: tmpdir=/tmp
+
+[Sat Dec  7 15:50:51 2024]
+Error in rule test_angles:
+    jobid: 4
+    input: outputs/integrated_cross_sections/energy_integration.txt
+    output: outputs/test_results/fort16_test.txt
+    shell:
+        python3 pytest python_scripts/tests/test_NaN.py > outputs/test_results/fort16_test.txt 2>&1
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Removing output files of failed job test_angles since they might be corrupted:
+outputs/test_results/fort16_test.txt
+[Sat Dec  7 15:50:51 2024]
+Error in rule test_fresco:
+    jobid: 6
+    input: outputs/fort_files/fort.16
+    output: outputs/test_results/fort16_exists.txt
+    shell:
+        python3 pytest python_scripts/tests/test_fresco.py > outputs/test_results/fort16_exists.txt 2>&1
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Removing output files of failed job test_fresco since they might be corrupted:
+outputs/test_results/fort16_exists.txt
+[Sat Dec  7 15:50:51 2024]
+Error in rule test_relE:
+    jobid: 5
+    input: outputs/integrated_cross_sections/angle_integration.txt
+    output: outputs/test_results/fort13_test.txt
+    shell:
+        python3 pytest python_scripts/tests/test_relE.py > outputs/test_results/fort13_test.txt 2>&1
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Removing output files of failed job test_relE since they might be corrupted:
+outputs/test_results/fort13_test.txt
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2024-12-07T155051.090955.snakemake.log
+WorkflowError:
+At least one job did not complete successfully.

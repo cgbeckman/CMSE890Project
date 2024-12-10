@@ -1,0 +1,7 @@
+host: dev-intel16
+Building DAG of jobs...
+MissingInputException in rule plot_brkup_cs in file /mnt/ufs18/home-042/beckma75/CMSE890Project/Snakefile, line 31:
+Missing input files(Using '~' in your paths is not allowed as such platform specific syntax is not resolved by Snakemake. In general, try sticking to relative paths for everything inside the working directory.) for rule plot_brkup_cs:
+    output: outputs/plots/brkup_cs.png
+    affected files:
+        ~/outputs/integrated_cross_sections/energy_integration.txt

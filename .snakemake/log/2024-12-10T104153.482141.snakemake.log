@@ -1,0 +1,65 @@
+host: dev-intel16
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 28
+Rules claiming more threads will be scaled down.
+Job stats:
+job            count
+-----------  -------
+all                1
+test_angles        1
+test_fresco        1
+test_relE          1
+total              4
+
+Select jobs to execute...
+Execute 3 jobs...
+
+[Tue Dec 10 10:41:53 2024]
+localrule test_angles:
+    input: outputs/integrated_cross_sections/energy_integration.txt
+    output: outputs/test_results/fort16_test.txt
+    jobid: 4
+    reason: Missing output files: outputs/test_results/fort16_test.txt
+    resources: tmpdir=/tmp
+
+
+[Tue Dec 10 10:41:53 2024]
+localrule test_fresco:
+    input: outputs/fort_files/fort.16
+    output: outputs/test_results/fort16_exists.txt
+    jobid: 6
+    reason: Missing output files: outputs/test_results/fort16_exists.txt
+    resources: tmpdir=/tmp
+
+
+[Tue Dec 10 10:41:53 2024]
+localrule test_relE:
+    input: outputs/integrated_cross_sections/angle_integration.txt
+    output: outputs/test_results/fort13_test.txt
+    jobid: 5
+    reason: Missing output files: outputs/test_results/fort13_test.txt
+    resources: tmpdir=/tmp
+
+Waiting at most 5 seconds for missing files.
+[Tue Dec 10 10:41:54 2024]
+Error in rule test_fresco:
+    jobid: 6
+    input: outputs/fort_files/fort.16
+    output: outputs/test_results/fort16_exists.txt
+    shell:
+        python3 python_scripts/tests/test_fresco.py
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+MissingOutputException in rule test_angles in file /mnt/ufs18/home-042/beckma75/CMSE890Project/Snakefile, line 41:
+Job 4  completed successfully, but some output files are missing. Missing files after 5 seconds. This might be due to filesystem latency. If that is the case, consider to increase the wait time with --latency-wait:
+outputs/test_results/fort16_test.txt (missing locally, parent dir contents: )
+Waiting at most 5 seconds for missing files.
+MissingOutputException in rule test_relE in file /mnt/ufs18/home-042/beckma75/CMSE890Project/Snakefile, line 47:
+Job 5  completed successfully, but some output files are missing. Missing files after 5 seconds. This might be due to filesystem latency. If that is the case, consider to increase the wait time with --latency-wait:
+outputs/test_results/fort13_test.txt (missing locally, parent dir contents: )
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2024-12-10T104153.482141.snakemake.log
+WorkflowError:
+At least one job did not complete successfully.

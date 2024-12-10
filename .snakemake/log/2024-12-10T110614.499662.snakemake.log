@@ -1,0 +1,7 @@
+host: dev-intel16
+Building DAG of jobs...
+MissingInputException in rule all in file /mnt/ufs18/home-042/beckma75/CMSE890Project/Snakefile, line 3:
+Missing input files for rule all:
+    affected files:
+        outputs/test_results/fort16_test.txt
+        outputs/test_results/fort13_test.txt

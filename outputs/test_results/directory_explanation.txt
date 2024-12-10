@@ -1,1 +1,0 @@
-This subdirectory is to store the results of tests. 

@@ -1,0 +1,27 @@
+host: dev-intel16
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 28
+Rules claiming more threads will be scaled down.
+Job stats:
+job          count
+---------  -------
+run_input        1
+total            1
+
+Select jobs to execute...
+Execute 1 jobs...
+
+[Thu Dec  5 14:00:51 2024]
+localrule run_input:
+    input: input/example-br.in
+    output: outputs/output_file/example-br.out, input/long_input.in
+    jobid: 0
+    reason: Missing output files: outputs/output_file/example-br.out, input/long_input.in
+    threads: 4
+    resources: tmpdir=/tmp, mem_mb=4000, mem_mib=3815
+
+[Thu Dec  5 14:00:57 2024]
+Finished job 0.
+1 of 1 steps (100%) done
+Complete log: .snakemake/log/2024-12-05T140051.791169.snakemake.log

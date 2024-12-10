@@ -1,0 +1,5 @@
+host: dev-intel16
+Building DAG of jobs...
+WildcardError in rule all in file /mnt/ufs18/home-042/beckma75/CMSE890Project/Snakefile, line 8:
+Wildcards in input files cannot be determined from output files: (rule all, line 10, /mnt/ufs18/home-042/beckma75/CMSE890Project/Snakefile)
+'home_dir'

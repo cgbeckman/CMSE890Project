@@ -1,0 +1,47 @@
+host: dev-intel16
+Building DAG of jobs...
+Using shell: /usr/bin/bash
+Provided cores: 28
+Rules claiming more threads will be scaled down.
+Job stats:
+job          count
+---------  -------
+run_input        1
+total            1
+
+Select jobs to execute...
+Execute 1 jobs...
+
+[Thu Dec  5 14:02:32 2024]
+localrule run_input:
+    input: input/example-br.in
+    output: outputs/output_file/example-br.out, input/long_input.in
+    jobid: 0
+    reason: Missing output files: input/long_input.in, outputs/output_file/example-br.out
+    threads: 4
+    resources: tmpdir=/tmp, mem_mb=4000, mem_mib=3815
+
+[Thu Dec  5 14:02:39 2024]
+Error in rule run_input:
+    jobid: 0
+    input: input/example-br.in
+    output: outputs/output_file/example-br.out, input/long_input.in
+    shell:
+        
+        fresco/cdc < input/example-br.in > input/long_input.in
+        fresco/fresco < input/long_input.in > outputs/output_file/example-br.out
+        fresco/sumbins < fort.16 > energy_integration.txt
+        fresco/sumxen < fort.13 > angle_integration.txt
+        for file in fort*; do mv $file outputs/fort_files/; done
+        mv energy_integration.txt outputs/integrated_cross_sections/
+        mv angle_integration.txt outputs/integratied_cross_sections/
+        
+        (one of the commands exited with non-zero exit code; note that snakemake uses bash strict mode!)
+
+Removing output files of failed job run_input since they might be corrupted:
+outputs/output_file/example-br.out, input/long_input.in
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look above for error message
+Complete log: .snakemake/log/2024-12-05T140232.709317.snakemake.log
+WorkflowError:
+At least one job did not complete successfully.
