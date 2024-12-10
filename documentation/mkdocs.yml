@@ -1,1 +1,8 @@
 site_name: My Docs
+nav: 
+  - CDCC Calculations: cdcc.md 
+  - Fresco: fresco.md 
+  - Fresco Output: output.md
+  - Workflow Details: workflow.md
+  - Example-15C(d,d')15C: input.md
+theme: readthedocs
