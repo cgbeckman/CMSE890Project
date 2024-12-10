@@ -24,4 +24,10 @@ Steps to run:
    a) To run the workflow, activate the environment in command line using "conda activate CMSEProject890". Then                        
       run "snakemake" in the command line to run the workflow.                                                                               
    b) Alternatively, one can submit the workflow to anywhere that uses slurm for job submission. In the workflow/                         
-      directory a run_workflows.sb file exists. Entering "sbatch run_workflow.sb" submits the workflow to the system.                      
+      directory a run_workflows.sb file exists. Entering "sbatch run_workflow.sb" submits the workflow to the system.
+
+Outputs:                                                                                                                                     
+Fresco is a quite comprehensive nuclear reactions program, that calculates many observables. These observables are stored in each fort.xxx file, which are 
+stored in the directory "outputs/fort_files/". For a breakup reaction, the observables of interest are the angle and energy integrated cross-sections. 
+1) Angle integrated cross-sections: The differential cross section in relation to the energy is calculated by Fresco and output into fort.13. The angle integration of these values calculates the relative energy between the core and valence components that broke apart. This angular integration is performed by passing fort.13 to the program sumxen, which is done in this workflow. 
+2) Energy integrated cross-sections: The other observable of interest is the energy integrated angular distribution for elastic scattering. The differential elastic scattering cross-sections are calculated and stored in fort.16. In this workflow, the energy integrated angular distribution is obtained by passing fort.16 to the program sumbins.
