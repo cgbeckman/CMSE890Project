@@ -1,0 +1,119 @@
+usage: snakemake [-h] [--dry-run] [--profile PROFILE]
+                 [--workflow-profile WORKFLOW_PROFILE] [--cache [RULE ...]]
+                 [--snakefile FILE] [--cores N] [--jobs N] [--local-cores N]
+                 [--resources NAME=INT [NAME=INT ...]]
+                 [--set-threads RULE=THREADS [RULE=THREADS ...]]
+                 [--max-threads MAX_THREADS]
+                 [--set-resources RULE:RESOURCE=VALUE [RULE:RESOURCE=VALUE ...]]
+                 [--set-scatter NAME=SCATTERITEMS [NAME=SCATTERITEMS ...]]
+                 [--set-resource-scopes RESOURCE=[global|local]
+                 [RESOURCE=[global|local] ...]]
+                 [--default-resources [NAME=INT ...]]
+                 [--preemptible-rules [PREEMPTIBLE_RULES ...]]
+                 [--preemptible-retries PREEMPTIBLE_RETRIES]
+                 [--configfile FILE [FILE ...]] [--config [KEY=VALUE ...]]
+                 [--envvars VARNAME [VARNAME ...]] [--directory DIR] [--touch]
+                 [--keep-going]
+                 [--rerun-triggers {code,input,mtime,params,software-env} [{code,input,mtime,params,software-env} ...]]
+                 [--force] [--executor {local,dryrun,touch}] [--forceall]
+                 [--forcerun [TARGET ...]]
+                 [--consider-ancient RULE=INPUTITEMS [RULE=INPUTITEMS ...]]
+                 [--prioritize TARGET [TARGET ...]]
+                 [--batch RULE=BATCH/BATCHES] [--until TARGET [TARGET ...]]
+                 [--omit-from TARGET [TARGET ...]] [--rerun-incomplete]
+                 [--shadow-prefix DIR] [--scheduler [{ilp,greedy}]]
+                 [--wms-monitor [WMS_MONITOR]]
+                 [--wms-monitor-arg [NAME=VALUE ...]]
+                 [--scheduler-ilp-solver {PULP_CBC_CMD,COIN_CMD}]
+                 [--conda-base-path CONDA_BASE_PATH] [--no-subworkflows]
+                 [--precommand PRECOMMAND] [--groups GROUPS [GROUPS ...]]
+                 [--group-components GROUP_COMPONENTS [GROUP_COMPONENTS ...]]
+                 [--report [FILE]] [--report-stylesheet CSSFILE]
+                 [--reporter PLUGIN] [--draft-notebook TARGET]
+                 [--edit-notebook TARGET] [--notebook-listen IP:PORT]
+                 [--lint [{text,json}]] [--generate-unit-tests [TESTPATH]]
+                 [--containerize] [--export-cwl FILE] [--list-rules]
+                 [--list-target-rules] [--dag] [--rulegraph] [--filegraph]
+                 [--d3dag] [--summary] [--detailed-summary] [--archive FILE]
+                 [--cleanup-metadata FILE [FILE ...]] [--cleanup-shadow]
+                 [--skip-script-cleanup] [--unlock]
+                 [--list-changes {input,code,params}] [--list-input-changes]
+                 [--list-params-changes] [--list-untracked]
+                 [--delete-all-output | --delete-temp-output]
+                 [--keep-incomplete] [--drop-metadata] [--version]
+                 [--printshellcmds] [--debug-dag] [--nocolor]
+                 [--quiet [{all,host,progress,rules} ...]]
+                 [--print-compilation] [--verbose] [--force-use-threads]
+                 [--allow-ambiguity] [--nolock] [--ignore-incomplete]
+                 [--max-inventory-time SECONDS] [--latency-wait SECONDS]
+                 [--wait-for-files [FILE ...]] [--wait-for-files-file FILE]
+                 [--queue-input-wait-time SECONDS] [--notemp] [--all-temp]
+                 [--unneeded-temp-files FILE [FILE ...]]
+                 [--keep-storage-local-copies]
+                 [--target-files-omit-workdir-adjustment]
+                 [--allowed-rules ALLOWED_RULES [ALLOWED_RULES ...]]
+                 [--max-jobs-per-timespan MAX_JOBS_PER_TIMESPAN]
+                 [--max-jobs-per-second MAX_JOBS_PER_SECOND]
+                 [--max-status-checks-per-second MAX_STATUS_CHECKS_PER_SECOND]
+                 [--seconds-between-status-checks SECONDS_BETWEEN_STATUS_CHECKS]
+                 [--retries RETRIES] [--wrapper-prefix WRAPPER_PREFIX]
+                 [--default-storage-provider DEFAULT_STORAGE_PROVIDER]
+                 [--default-storage-prefix DEFAULT_STORAGE_PREFIX]
+                 [--local-storage-prefix LOCAL_STORAGE_PREFIX]
+                 [--remote-job-local-storage-prefix REMOTE_JOB_LOCAL_STORAGE_PREFIX]
+                 [--shared-fs-usage {input-output,persistence,software-deployment,source-cache,sources,storage-local-copies,none} [{input-output,persistence,software-deployment,source-cache,sources,storage-local-copies,none} ...]]
+                 [--scheduler-greediness SCHEDULER_GREEDINESS]
+                 [--scheduler-subsample SCHEDULER_SUBSAMPLE] [--no-hooks]
+                 [--debug] [--runtime-profile FILE]
+                 [--local-groupid LOCAL_GROUPID] [--attempt ATTEMPT]
+                 [--show-failed-logs] [--log-handler-script FILE]
+                 [--log-service {none,slack,wms}] [--job-deploy-sources]
+                 [--benchmark-extended] [--container-image IMAGE]
+                 [--immediate-submit] [--jobscript SCRIPT] [--jobname NAME]
+                 [--flux]
+                 [--software-deployment-method {apptainer,conda,env-modules} [{apptainer,conda,env-modules} ...]]
+                 [--container-cleanup-images] [--use-conda]
+                 [--conda-not-block-search-path-envvars] [--list-conda-envs]
+                 [--conda-prefix DIR] [--conda-cleanup-envs]
+                 [--conda-cleanup-pkgs [{tarballs,cache}]]
+                 [--conda-create-envs-only] [--conda-frontend {conda,mamba}]
+                 [--use-apptainer] [--apptainer-prefix DIR]
+                 [--apptainer-args ARGS] [--use-envmodules]
+                 [--scheduler-solver-path SCHEDULER_SOLVER_PATH]
+                 [--deploy-sources QUERY CHECKSUM]
+                 [--target-jobs TARGET_JOBS [TARGET_JOBS ...]]
+                 [--mode {subprocess,remote,default}]
+                 [--report-html-path VALUE]
+                 [--report-html-stylesheet-path VALUE]
+                 [targets ...]
+snakemake: error: unrecognized arguments: --pdf
+JobId=47360873 JobName=CMSE890Project
+   UserId=beckma75(6183427) GroupId=nscl(2002) MCS_label=N/A
+   Priority=8909 Nice=0 Account=general QOS=beckma75
+   JobState=RUNNING Reason=None Dependency=(null)
+   Requeue=1 Restarts=0 BatchFlag=1 Reboot=0 ExitCode=0:0
+   RunTime=00:00:08 TimeLimit=01:00:00 TimeMin=N/A
+   SubmitTime=2024-12-10T14:20:03 EligibleTime=2024-12-10T14:20:03
+   AccrueTime=2024-12-10T14:20:03
+   StartTime=2024-12-10T14:20:05 EndTime=2024-12-10T15:20:05 Deadline=N/A
+   SuspendTime=None SecsPreSuspend=0 LastSchedEval=2024-12-10T14:20:05 Scheduler=Main
+   Partition=general-short AllocNode:Sid=dev-intel16:3508025
+   ReqNodeList=(null) ExcNodeList=(null)
+   NodeList=amr-024
+   BatchHost=amr-024
+   NumNodes=1 NumCPUs=48 NumTasks=1 CPUs/Task=48 ReqB:S:C:T=0:0:*:*
+   ReqTRES=cpu=48,mem=100G,node=1,billing=15564
+   AllocTRES=cpu=48,mem=100G,node=1,billing=15564
+   Socks/Node=* NtasksPerN:B:S:C=0:0:*:* CoreSpec=*
+   MinCPUsNode=48 MinMemoryNode=100G MinTmpDiskNode=0
+   Features=[intel14|intel16|intel18|(amr|acm)|nvf|nal|nif|amd24] DelayBoot=00:00:00
+   OverSubscribe=OK Contiguous=0 Licenses=(null) Network=(null)
+   Command=/mnt/ufs18/home-042/beckma75/CMSE890Project/workflow/run_workflow.sb
+   WorkDir=/mnt/ufs18/home-042/beckma75/CMSE890Project/workflow
+   Comment=stdout=/mnt/ufs18/home-042/beckma75/CMSE890Project/workflow/slurm-47360873.out 
+   StdErr=/mnt/ufs18/home-042/beckma75/CMSE890Project/workflow/slurm-47360873.out
+   StdIn=/dev/null
+   StdOut=/mnt/ufs18/home-042/beckma75/CMSE890Project/workflow/slurm-47360873.out
+   Power=
+   
+

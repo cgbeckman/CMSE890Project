@@ -1,0 +1,9 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.8, pytest-7.4.0, pluggy-1.2.0
+rootdir: /mnt/ufs18/home-042/beckma75/CMSE890Project
+plugins: xdist-3.3.1
+collected 1 item
+
+python_scripts/tests/test_angle_int.py .                                 [100%]
+
+============================== 1 passed in 0.03s ===============================

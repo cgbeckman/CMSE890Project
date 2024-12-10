@@ -1,0 +1,21 @@
+#!/bin/bash --login
+
+#SBATCH --time=1:00:00              # Set time to 4 hours
+#SBATCH --mem=100GB                 # Set memory
+#SBATCH --cpus-per-task=48          # Set total cpus
+#SBATCH --job-name=CMSE890Project   # Set job name
+
+# Load the compiler used to compile fresco
+module purge
+module load foss/2023a
+
+# Run script (if you cd in the line above, make sure your paths to fresco
+# executables in your .run file are absolute, not relative)
+conda activate CMSE890Project
+snakemake
+mv slurm-$SLURM_JOB_ID.out slurm_files/
+conda deactivate
+
+scontrol show job $SLURM_JOB_ID #disply job name so you can find it later
+
+
