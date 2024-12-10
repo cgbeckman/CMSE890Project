@@ -1,0 +1,26 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.8, pytest-7.4.0, pluggy-1.2.0
+rootdir: /mnt/ufs18/home-042/beckma75/CMSE890Project
+plugins: xdist-3.3.1
+collected 1 item
+
+python_scripts/tests/test_fresco.py F                                    [100%]
+
+=================================== FAILURES ===================================
+________________ test_fort16_exists[outputs/fort_file/fort.16] _________________
+
+file = 'outputs/fort_file/fort.16'
+
+    @pytest.mark.parametrize("file", ["outputs/fort_file/fort.16"])
+    def test_fort16_exists(file):
+>       assert os.path.isfile(file), f"{file} does not exist"
+E       AssertionError: outputs/fort_file/fort.16 does not exist
+E       assert False
+E        +  where False = <function isfile at 0x152b0beb49a0>('outputs/fort_file/fort.16')
+E        +    where <function isfile at 0x152b0beb49a0> = <module 'posixpath' (frozen)>.isfile
+E        +      where <module 'posixpath' (frozen)> = os.path
+
+python_scripts/tests/test_fresco.py:9: AssertionError
+=========================== short test summary info ============================
+FAILED python_scripts/tests/test_fresco.py::test_fort16_exists[outputs/fort_file/fort.16]
+============================== 1 failed in 0.06s ===============================

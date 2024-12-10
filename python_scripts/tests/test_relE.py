@@ -1,4 +1,5 @@
-# Test if the calculation worked 
+# Test if output for fort.13 is not NaN, and are real values
+
 import pytest
 
 def convert_to_float(value):
@@ -8,8 +9,9 @@ def convert_to_float(value):
     except ValueError:
         return False
     
-def test_values():
-    with open(snakemake.input[0]) as f:
+@pytest.mark.parametrize("file", ["outputs/fort_files/fort.13"])
+def test_values(file):
+    with open(file) as f:
         for line in f:
             stripped = line.strip().split()
         if len(stripped) > 1:

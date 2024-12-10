@@ -4,6 +4,6 @@ rootdir: /mnt/ufs18/home-042/beckma75/CMSE890Project
 plugins: xdist-3.3.1
 collected 1 item
 
-python_scripts/tests/test_relE.py .                                      [100%]
+python_scripts/tests/test_energy_int.py .                                [100%]
 
 ============================== 1 passed in 0.04s ===============================

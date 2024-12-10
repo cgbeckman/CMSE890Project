@@ -7,9 +7,10 @@ def convert_to_float(value):
         return True
     except ValueError:
         return False
-    
-def test_values():
-    with open(snakemake.input[0]) as f:
+
+@pytest.mark.parametrize("file", ["outputs/fort_files/fort.16"])
+def test_values(file):
+    with open(file) as f:
         for line in f:
             stripped = line.strip().split()
         if len(stripped) > 1:
