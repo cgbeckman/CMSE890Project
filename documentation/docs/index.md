@@ -1,17 +1,7 @@
-# Welcome to MkDocs
+# Reproducible Workflow for CDCC Calculations
+CMSE890 Fall 2024: Cate Beckman
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
-
-## Commands
-
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
-
-## Project layout
-
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+This website hosts the documentation for a reproducible workflow for a nuclear dynamics calculation. The 
+calculation uses the Continuum Discretized Coupled Channels method to obtain reaction observables. On 
+this site is a link to the corresponding github repository, which applies the workflow to carbon-15 
+elastically scattering on deuteron. 
