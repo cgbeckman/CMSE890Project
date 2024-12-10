@@ -14,14 +14,14 @@ file runs the Snakefile for the user. The workflow makes use of a tool called sn
 specified in environemnt.yaml. The .yaml file is stored in project_details/, and the environment is called CMSEProject890.
 
 Steps to run: 
-1) Download and compile Fresco.
+1) Download and compile Fresco.                                                                                                             
    a) This can be done on hpcc by cloning this repository, a precompiled
-   version of Fresco is located in the folder called Fresco.
+   version of Fresco is located in the folder called Fresco.                                                                             
    b) Alternatively, Fresco can be downloaded and compiled following the instructions at https://www.fresco.org.uk/source/installation.htm
 2) If desired, edit the reaction information in the input file. The example input file in this repository is
-   for a 15C elastic scattering on a deuteron target, using the Continuum Discretized Coupled Channels method.
-3) Run the workflow.
-   a) To run the workflow, activate the environment in command line using "conda activate CMSEProject890". Then
-      run "snakemake" in the command line to run the workflow.
-   b) Alternatively, one can submit the workflow to anywhere that uses slurm for job submission. In the workflow/
-      directory a run_workflows.sb file exists. Entering "sbatch run_workflow.sb" submits the workflow to the system.
+   for a 15C elastic scattering on a deuteron target, using the Continuum Discretized Coupled Channels method.                                             
+3) Run the workflow.                                                                                                                                     
+   a) To run the workflow, activate the environment in command line using "conda activate CMSEProject890". Then                        
+      run "snakemake" in the command line to run the workflow.                                                                               
+   b) Alternatively, one can submit the workflow to anywhere that uses slurm for job submission. In the workflow/                         
+      directory a run_workflows.sb file exists. Entering "sbatch run_workflow.sb" submits the workflow to the system.                      
