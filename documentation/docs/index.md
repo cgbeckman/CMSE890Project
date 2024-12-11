@@ -5,4 +5,5 @@ This website hosts the documentation for a reproducible workflow for a nuclear d
 calculation uses the Continuum Discretized Coupled Channels method to obtain reaction observables. Below is a link to the corresponding github 
 repository, which applies the workflow to carbon-15 
 elastically scattering on deuteron. 
-![link](https://github.com/cgbeckman/CMSE890Project.git)
+
+[github repository](https://github.com/cgbeckman/CMSE890Project.git)

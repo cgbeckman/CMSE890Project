@@ -26,4 +26,10 @@ output files will be stored in "workflow/outputs".
 
 To view the resulting energy integrated angular distribution, and angle integrated energy distribution, 
 navigate to the plots directory stored in "workflow/outputs/plots/". Any graphical viewer can be used to 
-view the plots. 
+view the plots. Below is what the result should look like. 
+
+![image](brkup_result.png)
+
+The angle integrated energy distribution should match the following result. 
+
+![image](s_half_relative_energy.png)
