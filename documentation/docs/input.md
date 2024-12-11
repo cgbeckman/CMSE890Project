@@ -3,7 +3,7 @@ fully
 implemented workflow for carbon-15 scattering on deuteron. 
 
 The input file is set up for the reaction information. The goal of the calculation is to determine the 
-elastic scattering angular distribution for carbon-15 scattering on a deuterium target. 
+breakup angular distribution for carbon-15 scattering on a deuterium target. 
 
 First, ensure snakemake is installed where the workflow will be run. The instructions to download 
 snakemake can be found 
